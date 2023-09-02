@@ -335,6 +335,10 @@
                     campaignName = document
                         .getElementById('campaignName')
                         .value.trim();
+                if (!campaignName) {
+                    alert('Please enter a Campaign Name!');
+                    location.reload();
+                }
                 const accountSelect = document.getElementById('account').value,
                     campaignType = document.querySelector(
                         'input[name="radio"]:checked'
@@ -510,6 +514,11 @@
             // }
 
             function readGA(response) {
+                if (response && !response.result.reports[0].data.isDataGolden) {
+                    alert(
+                        'Results have not been finalized yet! Please check again later!'
+                    );
+                }
                 fileData = {};
                 GAData = {};
                 results = [];
@@ -517,6 +526,30 @@
                 const campaignType = document.querySelector(
                     'input[name="radio"]:checked'
                 ).value;
+
+                console.log('response:', response);
+                //response.result.reports[0].data.isDataGolden = true
+                //response.result.reports[0].data.samplesReadCounts
+                //response.result.reports[0].data.samplingSpaceSizes - if a report contains sampled data the Analytics Reporting API v4 returns the samplesReadCounts and the samplingSpaceSizes fields. If the results are not sampled these 2 fields will not be defined. With these 2 values you can calculate the percentage of sessions that were used for the query. For example, if sampleSize is 201,000 and sampleSpace is 220,000 then the report is based on (201,000 / 220,000) * 100 = 91.36% of sessions
+                const readCounts =
+                        response.result.reports[0].data.samplesReadCounts,
+                    spaceSizes =
+                        response.result.reports[0].data.samplingSpaceSizes;
+                if (readCounts && spaceSizes) {
+                    const samplingPercent =
+                        (readCounts[0] / spaceSizes[0]) * 100;
+                    console.log(
+                        'Sampling Percent:',
+                        samplingPercent.toFixed(2) + '%'
+                    );
+                }
+                // if (sampleSizes && sampleSpaces) {
+                //     data['sampleSize'] = sample_sizes[0];
+                //     data['sampleSpace'] = sample_spaces[0];
+                //     data['containsSampledData'] = True;
+                // } else {
+                //     data['containsSampledData'] = False;
+                // }
 
                 const accountSelect = document.getElementById('account').value,
                     rows = response.result.reports[0].data.rows;
@@ -596,7 +629,6 @@
                     results = results.filter(function (item, i, a) {
                         return i == a.indexOf(item);
                     });
-
                     if (accountSelect.includes('sw')) {
                         const sortByObject = importOrder.reduce(
                             (obj, item, index) => {
@@ -630,7 +662,7 @@
                         campaignName = document
                             .getElementById('campaignName')
                             .value.trim();
-                        downloadCSV({ filename: `${campaignName}.csv` });
+                        // downloadCSV({ filename: `${campaignName}.csv` });
                     }, 1000);
                 } else {
                     // if pred checked
@@ -820,7 +852,7 @@
                     campaignName = document
                         .getElementById('campaignName')
                         .value.trim();
-                    downloadCSV({ filename: `${campaignName}.csv` });
+                    // downloadCSV({ filename: `${campaignName}.csv` });
                 }, 1000);
             }
 
@@ -940,7 +972,7 @@
                     campaignName = document
                         .getElementById('campaignName')
                         .value.trim();
-                    downloadCSV({ filename: `${campaignName}.csv` });
+                    //   downloadCSV({ filename: `${campaignName}.csv` });
                 }, 1000);
             }
 
