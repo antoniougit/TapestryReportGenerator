@@ -1,983 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex,nofollow" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-        <title>Tapestry Report Generator</title>
-        <meta
-            name="google-signin-client_id"
-            content="608858293726-kd126iiefgor24ikhvepdesecuo0udj6"
-        />
-        <meta
-            name="google-signin-scope"
-            content="https://www.googleapis.com/auth/analytics.readonly"
-        />
-        <!-- prettier-ignore -->
-        <style>
-            #file,#loader{position:absolute}#container,#file{width:100%;height:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}#file,.button{cursor:pointer}.button:active,.button:hover{background-color:#bb362a}#oldLink{text-align:center;margin-bottom:20px}#account{height:40px;text-align:center}#date{height:30px}.button{display:inline-block;font-size:18px;text-decoration:none;text-align:center}#account,#date{font-size:16px}#clickCounter,#container,#loader,.button,.select,h1,h2{text-align:center}h2{font-size:20px}h3{font-weight:400;margin-bottom:20px}#loader{left:50%;top:50%;z-index:1;width:120px;height:120px;margin:-76px 0 0 -76px;border-radius:50%;border-top:16px solid #4285f4;border-right:16px solid #ea4335;border-bottom:16px solid #fbbc05;border-left:16px solid #34a853;-webkit-animation:2s linear infinite spin;animation:2s linear infinite spin;display:none}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.animate-bottom{position:relative;-webkit-animation-name:animateBottom;-webkit-animation-duration:1s;animation-name:animateBottom;animation-duration:1s}@-webkit-keyframes animateBottom{from{bottom:-100px;opacity:0}to{bottom:0;opacity:1}}@keyframes animateBottom{from{bottom:-100px;opacity:0}to{bottom:0;opacity:1}}.g-signin2>div{margin:0 auto 20px}.select{margin:10px 0 20px 0}body{font-family:Verdana,sans-serif}p{margin:0;padding:0}#container{margin:0 auto}#campaignName{font-size:16px;width:400px;height:20px}.options{margin:0 20px}#oldLink a,.button{padding:10px 20px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;color:#fff;background-color:#ea4335;border:none;border-radius:10px;text-decoration:none}.button:active{-webkit-transform:translateY(4px);-ms-transform:translateY(4px);transform:translateY(4px)}.report{font-weight:700;margin:.5em}#account{color:red}#attentDiv,#sfmcDiv,.final{margin-top:30px}#clickCounter{font-size:12px}.buttons{margin:20px 0}#container .options:first-of-type{border:1px solid #000;max-width:800px;margin:0 auto;padding-top:20px}.attent,.sfmc{position:relative;border:1px solid #ccc;border-radius:10px;display:inline-block;padding:30px 12px}.fileName{font-size:.85rem;color:#555}#file{top:0;left:0;opacity:0;display:block;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;font-size:0;text-indent:-100px}.attent>span,.sfmc>span{color:#ccc;font-size:14px;font-weight:400}div.select>input.radio{position:fixed;left:-9999px}label.radio{cursor:pointer;padding:5px 20px}:checked+label.radio{background:rgba(234,67,53,.3);border-radius:10px}#account{-webkit-appearance:none;-moz-appearance:none;appearance:none;height:40px;padding:10px 15px;border:1px solid #ea4335;border-radius:10px}#account:focus,#account:hover{border:1px solid #ea4335}#account:focus{outline:0}select::-ms-expand{display:none}#campaignName{padding:10px;margin:10px 0;border:1px solid #ea4335;border-radius:10px;text-align:center}#campaignName:focus{outline:0}#oldLink a{background-color:rgba(234,67,53,.3)}#oldLink a:hover{background-color:#ea4335}
-        </style>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"
-            integrity="sha512-UhlYw//T419BPq/emC5xSZzkjjreRfN3426517rfsg/XIEC02ggQBb680V0VvP+zaDZ78zqse3rqnnI5EJ6rxA=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>Tapestry Report Merger</title>
+    <!-- prettier-ignore -->
+    <style>
+            .container,h1{display:flex;display:-webkit-box;display:-ms-flexbox}h1{text-align:center}h3{font-weight:normal;margin-bottom:30px}.buttons,.container{-webkit-box-direction:normal}#newLink{text-align:center;margin-bottom:20px}.select{margin-bottom:30px}#sms{margin-left:30px}body{font-family:Verdana,sans-serif}p{margin:0;padding:0}h1{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-decoration:underline}.container{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 auto;width:100%;height:100%}.buttons{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;margin:0 20px;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.report{font-weight:700;margin:.5em}.final,.sfmc,.attent{margin-top:30px}a.download:link,a.download:visited{display:inline-block;width:100px;text-align:center;padding:10px;color:#333;background-color:#fff;font-size:18px;border:1px solid red;text-decoration:none;-webkit-transition:.3s;-o-transition:.3s;transition:.3s;background:-o-linear-gradient(top,#f6f6f6 -50%,#dedede 110%);background:-webkit-gradient(linear,left top, left bottom,color-stop(-50%, #f6f6f6),color-stop(110%, #dedede));background:linear-gradient(top,#f6f6f6 -50%,#dedede 110%)}a.download:active,a.download:hover{color:red}#filesList{border:1px solid #000;padding:10px;min-height:150px;width:50%;font-size:14px}#filesList ol li{font-style:italic}#clickCounter{text-align:center;font-size:12px}
+            </style>
+  </head>
 
-    <body>
-        <div id="loader"></div>
-        <h1>Tapestry Report Generator</h1>
-        <h2><span style="color:red;">[</span>George Antoniou - EMEA SDE team<span style="color:red;">]</span></h2>
-        <h3 id="clickCounter">
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"
+      integrity="sha512-UhlYw//T419BPq/emC5xSZzkjjreRfN3426517rfsg/XIEC02ggQBb680V0VvP+zaDZ78zqse3rqnnI5EJ6rxA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <h1>Tapestry Report Merger</h1>
+    <!-- <h3 id="clickCounter">
             Final reports created:
             <span style="font-weight: bold"></span>!
-        </h3>
-        <p class="g-signin2"></p>
-        <p id="oldLink">
-            <a href="./tapestryreportmerger.html"
-                >Report Merger</a
-            >
-        </p>
-        <div id="container" class="animate-bottom">
-            <div class="options">
-                <div>
-                    <select
-                        name="account"
-                        id="account"
-                        class="report account"
-                        required
-                    >
-                        <!-- <option value="coachNA">Coach NA Retail</option> -->
-                        <option
-                            value="coachUSout"
-                            style="background: white; color: black"
-                        >
-                            Coach US Outlet
-                        </option>
-                        <option
-                            value="coachUSret"
-                            style="background: white; color: black"
-                        >
-                            Coach US Retail
-                        </option>
-                        <option
-                            value="ksUSret"
-                            style="background: white; color: black"
-                        >
-                            KS US Retail
-                        </option>
-                        <option
-                            value="ksUSsur"
-                            style="background: white; color: black"
-                        >
-                            KS US Surprise
-                        </option>
-                        <option
-                            value="swCanada"
-                            style="background: white; color: black"
-                        >
-                            SW Canada Retail
-                        </option>
-                        <option
-                            value="swUS"
-                            style="background: white; color: black"
-                        >
-                            SW US Retail
-                        </option>
-                    </select>
-                </div>
-                <div class="select">
-                    <input
-                        type="radio"
-                        id="pred"
-                        class="radio"
-                        name="radio"
-                        value="pred"
-                        checked
-                        onclick="showHide()"
-                    />
-                    <label for="pred" class="radio">Pred</label>
-                    <input
-                        type="radio"
-                        id="ose"
-                        class="radio"
-                        name="radio"
-                        value="ose"
-                        onclick="showHide()"
-                    />
-                    <label for="ose" class="radio">OSE</label>
-                    <input
-                        type="radio"
-                        id="expl"
-                        class="radio"
-                        name="radio"
-                        value="expl"
-                        onclick="showHide()"
-                    />
-                    <label for="expl" class="radio">EXPL</label>
-                    <input
-                        type="radio"
-                        id="bcst"
-                        class="radio"
-                        name="radio"
-                        value="bcst"
-                        onclick="showHide()"
-                    />
-                    <label for="bcst" class="radio">BCST</label>
-                    <input
-                        type="radio"
-                        id="sms"
-                        class="radio"
-                        name="radio"
-                        value="sms"
-                        onclick="showHide()"
-                    />
-                    <label for="sms" class="radio">SMS</label>
-                </div>
-                <div>
-                    <label for="date" class="report date">Start date:</label>
-                    <input
-                        type="date"
-                        id="date"
-                        name="date"
-                        min="2022-01-01"
-                        max="2022-12-31"
-                        class="report date"
-                        required
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        id="campaignName"
-                        name="campaignName"
-                        placeholder="Campaign Name (starts with)"
-                        required
-                    />
-                </div>
-                <div class="buttons">
-                    <button
-                        class="pull button"
-                        type="button"
-                        onclick="queryReports();"
-                    >
-                        Pull from GA
-                    </button>
-                </div>
-            </div>
-            <div class="options">
-                <div id="sfmcDiv" style="display: block">
-                    <label class="report sfmc" for="file"
-                        >Upload SFMC report<br />
-                        <span>(click OR drag & drop here)</span>
-                        <input
-                            name="file"
-                            id="file"
-                            class="file"
-                            type="file"
-                            accept=".xl*,.csv"
-                            onchange="readSFMCFile(this.files)"
-                        />
-                    </label>
-                </div>
-                <div id="attentDiv" style="display: none">
-                    <label class="report attent" for="file"
-                        >Upload Attentive report<br />
-                        <span>(click OR drag & drop here)</span>
-                        <input
-                            name="file"
-                            id="file"
-                            class="file"
-                            type="file"
-                            accept=".xl*,.csv"
-                            onchange="readAttentFile(this.files)"
-                        />
-                    </label>
-                </div>
-                <p class="fileName"></p>
-            </div>
+        </h3> -->
+    <p id="newLink">
+      <a href="./tapestryrepgen.html">Go to the new Report Generator</a>
+    </p>
+    <div class="container">
+      <div class="buttons">
+        <div class="select">
+          <input
+            type="radio"
+            id="email"
+            name="selection"
+            value="email"
+            checked
+            onclick="handleClick(this); showHide()"
+          />
+          <label for="email">Email</label>
+          <input
+            type="radio"
+            id="sms"
+            name="selection"
+            value="sms"
+            onclick="handleClick(this); showHide()"
+          />
+          <label for="sms">SMS</label>
         </div>
+        <p class="report ga">1. Upload GA report</p>
+        <input
+          type="file"
+          accept=".xl*,.csv"
+          onchange="readGAFile(this.files)"
+        />
+        <div id="sfmcDiv" style="display: block">
+          <p class="report sfmc">2. Upload SFMC report</p>
+          <input
+            type="file"
+            accept=".xl*,.csv"
+            onchange="readSFMCFile(this.files)"
+          />
+        </div>
+        <div id="attentDiv" style="display: none">
+          <p class="report attent">2. Upload Attentive report</p>
+          <input
+            type="file"
+            accept=".xl*,.csv"
+            onchange="readAttentFile(this.files)"
+          />
+        </div>
+        <p class="report final">3. Download the final report</p>
+        <a
+          class="download"
+          href="#"
+          onclick="downloadXL('tapestryFinalReport.xlsx');"
+          >Go!</a
+        >
+      </div>
+      <div id="filesList">
+        Selected files:
+        <ol></ol>
+      </div>
+    </div>
 
-        <script>
-            Date.prototype.dateToday = function () {
-                const local = new Date(this);
-                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-                return local.toJSON().slice(0, 10);
-            };
+    <script>
+      window.onload = function () {
+        // countClicks('info');
+        const check = sessionStorage.getItem('check');
+        if (check === 'sms') {
+          document.getElementById('sms').checked = true;
+          showHide();
+        }
+        if (typeof window.FileReader !== 'function') {
+          alert('File API not supported on this browser yet.');
+        }
+      };
 
-            function dateIncrement(date, increment) {
-                const parts = date.split('-');
-                const dt = new Date(
-                    parseInt(parts[0], 10),
-                    parseInt(parts[1], 10) - 1,
-                    parseInt(parts[2], 10)
+      window.onerror = function () {
+        alert('Please select the correct file!');
+      };
+
+      function handleClick(checkButton) {
+        const checkButtonId = checkButton.id;
+        sessionStorage.setItem('check', checkButtonId);
+      }
+
+      // function countClicks(endpoint) {
+      //     const xhr = new XMLHttpRequest();
+      //     xhr.open(
+      //         'GET',
+      //         `https://api.countapi.xyz/${endpoint}/gantoniou/tapestryrepgen`
+      //     );
+      //     xhr.responseType = 'json';
+      //     if (endpoint === 'info') {
+      //         xhr.onload = function () {
+      //             document.querySelector(
+      //                 '#clickCounter > span'
+      //             ).textContent = this.response.value;
+      //         };
+      //     }
+      //     xhr.send();
+      // }
+
+      function showHide() {
+        const email = document.getElementById('email'),
+          sfmcDiv = document.getElementById('sfmcDiv'),
+          attentDiv = document.getElementById('attentDiv');
+        sfmcDiv.style.display = email.checked ? 'block' : 'none';
+        attentDiv.style.display = email.checked ? 'none' : 'block';
+      }
+
+      let fileData = {},
+        GAData = {},
+        results = [];
+
+      function readGAFile(file) {
+        fileData = {};
+        GAData = {};
+        results = [];
+        let conversions = 0,
+          revenue = 0;
+        const ol = document.querySelector('#filesList ol');
+
+        if (ol.childNodes.length > 1) {
+          ol.innerHTML = '';
+        }
+
+        for (let i = 0; i < file.length; i++) {
+          const name = file[i].name,
+            reader = new FileReader();
+
+          reader.onload = function (e) {
+            const data = e.target.result,
+              workbook = XLSX.read(data, {
+                type: 'binary',
+              });
+
+            const sheetNames = ['Sheet1', 'Dataset4', 'Dataset1'];
+            let xlRowObj = [];
+
+            for (const sheetName of sheetNames) {
+              if (workbook.Sheets[sheetName]) {
+                xlRowObj = XLSX.utils.sheet_to_row_object_array(
+                  workbook.Sheets[sheetName]
                 );
-                dt.setDate(dt.getDate() + increment);
-                parts[0] = '' + dt.getFullYear();
-                parts[1] = '' + (dt.getMonth() + 1);
-                if (parts[1].length < 2) {
-                    parts[1] = '0' + parts[1];
-                }
-                parts[2] = '' + dt.getDate();
-                if (parts[2].length < 2) {
-                    parts[2] = '0' + parts[2];
-                }
-                return parts.join('-');
+                break;
+              }
             }
 
-            const fourDaysAgo = dateIncrement(new Date().dateToday(), -4);
-
-            document.getElementById('date').max = new Date().dateToday();
-            document.getElementById('date').value = fourDaysAgo;
-
-            const campaignSelect = document.querySelector(
-                    '#container > div:nth-child(1) > div.select'
-                ),
-                accountSelect = document.getElementById('account'),
-                storageAccount = sessionStorage.getItem('account'),
-                storageCampaign = sessionStorage.getItem('campaign');
-
-            if (storageAccount) {
-                accountSelect.value = storageAccount;
-            }
-
-            if (storageCampaign) {
-                document.getElementById(storageCampaign).checked = true;
-            }
-
-            accountSelect.addEventListener('change', () => {
-                sessionStorage.setItem('account', accountSelect.value);
-            });
-
-            campaignSelect.addEventListener('change', function (e) {
-                if (e.target.name === 'radio') {
-                    sessionStorage.setItem('campaign', e.target.value);
+            if (document.getElementById('sms').checked) {
+              for (const key in xlRowObj) {
+                if (xlRowObj[key]['Campaign']) {
+                  fileData[key] = xlRowObj[key];
                 }
-            });
-
-            window.onload = function () {
-                countClicks('info');
-                showHide();
-                if (typeof window.FileReader !== 'function') {
-                    alert('File API not supported on this browser yet!');
+              }
+              GAData = Object.assign({}, fileData);
+            } else
+              for (const key in xlRowObj) {
+                if (xlRowObj[key]['Transactions'] > 0) {
+                  fileData[key] = xlRowObj[key];
+                  conversions += fileData[key]['Transactions'];
+                  revenue += fileData[key]['Revenue'];
                 }
-            };
+                GAData = {
+                  Conversions: conversions,
+                  Revenue: revenue,
+                };
+              }
 
-            // window.onerror = function () {
-            //     alert('No data found!');
-            // };
+            const li = document.createElement('li');
+            li.textContent = name;
+            ol.appendChild(li);
+          };
+          reader.readAsBinaryString(file[i]);
+        }
+      }
 
-            const file = document.getElementById('file');
-            file.addEventListener('change', (e) => {
-                if (Object.keys(GAData).length === 0) {
-                    return;
-                }
-                const [file] = e.target.files,
-                    { name: fileName, size } = file,
-                    fileSize = (size / 1000).toFixed(2),
-                    fileNameAndSize = `${fileName} - ${fileSize}KB`;
-                document.querySelector('.fileName').textContent =
-                    fileNameAndSize;
-            });
+      function readSFMCFile(file) {
+        let SFMCData = {};
+        results = [];
+        let deliveries = 0,
+          opens = 0,
+          clicks = 0;
+        const ol = document.querySelector('#filesList ol');
 
-            function countClicks(endpoint) {
-                const xhr = new XMLHttpRequest();
-                xhr.open(
-                    'GET',
-                    `https://api.countapi.xyz/${endpoint}/gantoniou/tapestryrepgen`
-                );
-                xhr.responseType = 'json';
-                if (endpoint === 'info') {
-                    xhr.onload = function () {
-                        document.querySelector(
-                            '#clickCounter > span'
-                        ).textContent = this.response.value;
-                    };
-                }
-                xhr.send();
-            }
+        if (ol.childNodes.length > 1) {
+          ol.innerHTML = '';
+        }
 
-            function showHide() {
-                const pred = document.getElementById('pred'),
-                    ose = document.getElementById('ose'),
-                    expl = document.getElementById('expl'),
-                    bcst = document.getElementById('bcst'),
-                    sfmcDiv = document.getElementById('sfmcDiv'),
-                    attentDiv = document.getElementById('attentDiv');
-                sfmcDiv.style.display = pred.checked ? 'block' : 'none';
-                sfmcDiv.style.display =
-                    ose.checked || expl.checked || bcst.checked || sms.checked
-                        ? 'none'
-                        : 'block';
-                attentDiv.style.display = sms.checked ? 'block' : 'none';
-            }
+        let campaignRow = [],
+          nameRow = 0;
+        const dataLength = Object.keys(fileData).length;
 
-            let startTime,
-                endTime = 0;
+        for (let i = 0; i < file.length; i++) {
+          const name = file[i].name,
+            reader = new FileReader();
+          reader.onload = function (e) {
+            const data = e.target.result,
+              workbook = XLSX.read(data, {
+                type: 'binary',
+              });
 
-            function reportStart() {
-                document.getElementById('container').style.display = 'none';
-                document.getElementById('loader').style.display = 'block';
-                startTime = performance.now();
-            }
+            const sheet = workbook.Sheets[workbook.SheetNames[0]],
+              range = XLSX.utils.decode_range(sheet['!ref']);
 
-            function reportEnd() {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('container').style.display = 'block';
-                endTime = performance.now();
-                console.log(
-                    `GA API call took ${((endTime - startTime) / 1000).toFixed(
-                        2
-                    )} seconds`
-                );
-            }
-
-            function queryReports() {
-                reportStart();
-                let viewId = '249300291',
-                    campaignName = document
-                        .getElementById('campaignName')
-                        .value.trim();
-                if (!campaignName) {
-                    alert('Please enter a Campaign Name!');
-                    location.reload();
-                }
-                const accountSelect = document.getElementById('account').value,
-                    campaignType = document.querySelector(
-                        'input[name="radio"]:checked'
-                    ).value,
-                    startDate = document.getElementById('date').value,
-                    endDate = dateIncrement(startDate, 3);
-                if (endDate >= new Date().dateToday()) {
-                    alert('End date cannot be today or in the future!');
-                    location.reload();
-                }
-                if (
-                    accountSelect.includes('sw') &&
-                    (campaignName.includes('-OTLOPTIN') ||
-                        campaignName.includes('-SWSEGS'))
-                ) {
-                    campaignName = campaignName
-                        .replace('-OTLOPTIN', '')
-                        .replace('-SWSEGS', '');
-                }
-
-                let dimensions = [],
-                    dimensionFilterClauses = [
-                        {
-                            filters: [
-                                {
-                                    dimensionName: 'ga:campaign',
-                                    operator: 'BEGINS_WITH',
-                                    expressions: [campaignName],
-                                },
-                            ],
-                        },
-                    ],
-                    orderBys = [];
-
-                switch (accountSelect) {
-                    // case 'coachNA':
-                    //     viewId = '249300291';
-                    //     break;
-                    case 'coachUSout':
-                        viewId = '238100595';
-                        break;
-                    case 'coachUSret':
-                        viewId = '234177249';
-                        break;
-                    case 'ksUSret':
-                        viewId = '255937198';
-                        break;
-                    case 'ksUSsur':
-                        viewId = '255935277';
-                        break;
-                    case 'swCanada':
-                        viewId = '231373074';
-                        break;
-                    case 'swUS':
-                        viewId = '231367597';
-                        break;
-                }
-
-                if (campaignType === 'pred' || campaignType === 'sms') {
-                    dimensions = [
-                        {
-                            name: 'ga:campaign',
-                        },
-                    ];
-                    orderBys = [
-                        {
-                            fieldName: 'ga:campaign',
-                            orderType: 'VALUE',
-                            sortOrder: 'ASCENDING',
-                        },
-                    ];
-                } else {
-                    let variantNum = 0;
-                    const variantArray = [];
-
-                    if (campaignType === 'expl') {
-                        variantNum = 17;
-                    } else if (campaignType === 'bcst') {
-                        variantNum = 3;
-                    } else if (accountSelect.includes('sw')) {
-                        variantNum = 12;
-                    } else {
-                        variantNum = 19;
-                    }
-                    if (!accountSelect.includes('sw')) {
-                        for (let i = 1; i <= variantNum; i++) {
-                            variantArray.push(i.toString());
-                        }
-
-                        dimensionFilterClauses = [
-                            {
-                                operator: 'AND',
-                                filters: [
-                                    {
-                                        dimensionName: 'ga:campaign',
-                                        operator: 'BEGINS_WITH',
-                                        expressions: [campaignName],
-                                    },
-                                    {
-                                        dimensionName: 'ga:dimension56',
-                                        operator: 'IN_LIST',
-                                        expressions: variantArray,
-                                    },
-                                ],
-                            },
-                        ];
-                    }
-
-                    dimensions = [
-                        {
-                            name: 'ga:campaign',
-                        },
-                        {
-                            name: 'ga:dimension56',
-                        },
-                    ];
-
-                    orderBys = [
-                        {
-                            fieldName: 'ga:dimension56',
-                            orderType: 'DIMENSION_AS_INTEGER',
-                            sortOrder: 'ASCENDING',
-                        },
-                    ];
-                }
-
-                gapi.client
-                    .request({
-                        path: '/v4/reports:batchGet',
-                        root: 'https://analyticsreporting.googleapis.com/',
-                        method: 'POST',
-                        body: {
-                            reportRequests: [
-                                {
-                                    viewId,
-                                    samplingLevel: 'LARGE',
-                                    dateRanges: [
-                                        {
-                                            startDate,
-                                            endDate,
-                                        },
-                                    ],
-                                    metrics: [
-                                        {
-                                            expression: 'ga:users',
-                                        },
-                                        {
-                                            expression: 'ga:transactions',
-                                        },
-                                        {
-                                            expression: 'ga:transactionRevenue',
-                                        },
-                                    ],
-                                    dimensions,
-                                    dimensionFilterClauses,
-                                    orderBys,
-                                },
-                            ],
-                        },
+            if (dataLength > 1) {
+              for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                const secondCell =
+                  sheet[
+                    XLSX.utils.encode_cell({
+                      r: rowNum,
+                      c: 1,
                     })
-                    .then(readGA, console.error.bind(console));
-            }
-
-            let fileData = {},
-                GAData = {},
-                results = [];
-
-            // function sortResultsByCD(a, b) {
-            //     return (
-            //         a['persado_email_version (u_cd56)'] -
-            //         b['persado_email_version (u_cd56)']
-            //     );
-            // }
-
-            function readGA(response) {
-                if (!response.result.reports[0].data.rowCount) {
-                    alert('No data found!');
-                    location.reload();
-                } else if (
-                    response &&
-                    !response.result.reports[0].data.isDataGolden
-                ) {
-                    alert(
-                        'Results have not been finalized yet! Please check again later!'
-                    );
-                }
-                fileData = {};
-                GAData = {};
-                results = [];
-                let GAResults = [];
-
-                const campaignType = document.querySelector(
-                    'input[name="radio"]:checked'
-                ).value;
-
-                const accountSelect = document.getElementById('account').value,
-                    rows = response.result.reports[0].data.rows;
-
-                const customDimension = 'persado_email_version (u_cd56)';
-
-                for (let i = 0; i < rows.length; i++) {
-                    if (campaignType === 'pred' || campaignType === 'sms') {
-                        GAResults[i] = {
-                            Campaign: rows[i].dimensions[0],
-                            Users: Number(rows[i].metrics[0].values[0]),
-                            Transactions: Number(rows[i].metrics[0].values[1]),
-                            Revenue: Number(rows[i].metrics[0].values[2]),
-                        };
-                    } else {
-                        GAResults[i] = {
-                            Campaign: rows[i].dimensions[0],
-                            'persado_email_version (u_cd56)':
-                                rows[i].dimensions[1],
-                            Users: Number(rows[i].metrics[0].values[0]),
-                            Transactions: Number(rows[i].metrics[0].values[1]),
-                            Revenue: Number(rows[i].metrics[0].values[2]),
-                        };
-                    }
-                }
-
-                let conversions = 0,
-                    revenue = 0;
-
-                if (document.getElementById('sms').checked) {
-                    for (const key in GAResults) {
-                        fileData[key] = GAResults[key];
-                    }
-                    GAData = Object.assign({}, fileData);
-                } else if (!document.getElementById('pred').checked) {
-                    for (const key in GAResults) {
-                        fileData[key] = GAResults[key];
-                        const resultObj = Object.assign(fileData[key]);
-                        results.push(resultObj);
-                        // results = results.sort(sortResultsByCD);
-                    }
-                    const customDimension = 'persado_email_version (u_cd56)',
-                        importOrder = ['|d_', '|l_', '|c_'];
-                    if (accountSelect.includes('sw')) {
-                        results = results.filter((item) =>
-                            importOrder.includes(
-                                item[customDimension].slice(
-                                    item[customDimension].length - 4,
-                                    item[customDimension].length - 1
-                                )
-                            )
-                        );
-                    }
-
-                    results = results.reduce(function (acc, val) {
-                        const o = acc
-                            .filter(function (obj) {
-                                return (
-                                    obj[customDimension] == val[customDimension]
-                                );
-                            })
-                            .pop() || {
-                            Campaign: val.Campaign,
-                            [customDimension]: val[customDimension],
-                            Users: 0,
-                            Transactions: 0,
-                            Revenue: 0,
-                        };
-                        o.Campaign = val.Campaign;
-                        o.Users += val.Users;
-                        o.Transactions += val.Transactions;
-                        o.Revenue += Number(val.Revenue.toFixed(2));
-                        acc.push(o);
-                        return acc;
-                    }, []);
-
-                    results = results.filter(function (item, i, a) {
-                        return i == a.indexOf(item);
-                    });
-                    if (accountSelect.includes('sw')) {
-                        const sortByObject = importOrder.reduce(
-                            (obj, item, index) => {
-                                return {
-                                    ...obj,
-                                    [item]: index,
-                                };
-                            },
-                            {}
-                        );
-
-                        results = results.sort(
-                            (a, b) =>
-                                sortByObject[
-                                    a[customDimension].slice(
-                                        a[customDimension].length - 4,
-                                        a[customDimension].length - 1
-                                    )
-                                ] -
-                                sortByObject[
-                                    b[customDimension].slice(
-                                        b[customDimension].length - 4,
-                                        b[customDimension].length - 1
-                                    )
-                                ]
-                        );
-                    } else {
-                        results[results.length - 1][customDimension] = 'CTRL';
-                    }
-                    setTimeout(() => {
-                        campaignName = document
-                            .getElementById('campaignName')
-                            .value.trim();
-                        downloadXL(`${campaignName}.xlsx`);
-                    }, 1000);
+                  ];
+                if (secondCell && secondCell.v === 'Email Content Name') {
+                  nameRow = rowNum;
                 } else {
-                    // if pred checked
-                    for (const key in GAResults) {
-                        fileData[key] = GAResults[key];
-                        conversions += fileData[key]['Transactions'];
-                        revenue += fileData[key]['Revenue'];
-
-                        GAData = {
-                            Conversions: conversions,
-                            Revenue: revenue,
-                        };
+                  for (const key in fileData) {
+                    if (
+                      secondCell &&
+                      secondCell.v === fileData[key]['Campaign']
+                    ) {
+                      campaignRow[key] = rowNum;
+                      const xlRowObj = XLSX.utils.sheet_to_row_object_array(
+                        workbook.Sheets[workbook.SheetNames[0]],
+                        { range: nameRow }
+                      );
+                      fileData[key] = xlRowObj[campaignRow[key] - nameRow - 1];
+                      deliveries += fileData[key]['Email Deliveries'];
+                      opens += fileData[key]['Email Unique Opens'];
+                      clicks += fileData[key]['Email Unique Clicks'];
                     }
+                  }
                 }
-                reportEnd();
-                console.log('fileData:', fileData);
-                console.log('GAData:', GAData);
-            }
-
-            function formatDate(date) {
-                const newDate = new Date(
-                    Date.UTC(0, 0, date - 1)
-                ).toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                });
-                return newDate;
-            }
-
-            function readSFMCFile(file) {
-                if (Object.keys(GAData).length === 0) {
-                    alert('Please pull the GA results first!');
-                    return;
+              }
+            } else {
+              for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                const secondCell =
+                  sheet[
+                    XLSX.utils.encode_cell({
+                      r: rowNum,
+                      c: 1,
+                    })
+                  ];
+                if (secondCell && secondCell.v === 'Email Content Name') {
+                  nameRow = rowNum;
+                } else if (
+                  secondCell &&
+                  secondCell.v === fileData[0]['Campaign']
+                ) {
+                  campaignRow.push(rowNum);
                 }
-                let SFMCData = {};
-                let deliveries = 0,
-                    opens = 0,
-                    clicks = 0;
+              }
 
-                let campaignRow = [],
-                    nameRow = 0;
-                const dataLength = Object.keys(fileData).length;
+              const xlRowObj = XLSX.utils.sheet_to_row_object_array(
+                workbook.Sheets[workbook.SheetNames[0]],
+                { range: nameRow }
+              );
 
-                for (let i = 0; i < file.length; i++) {
-                    const name = file[i].name,
-                        reader = new FileReader();
-                    reader.onload = function (e) {
-                        const data = e.target.result,
-                            workbook = XLSX.read(data, {
-                                type: 'binary',
-                            });
+              for (let j = 0; j < campaignRow.length; j++) {
+                fileData[j] = xlRowObj[campaignRow[j] - nameRow - 1];
+                deliveries += fileData[j]['Email Deliveries'];
+                opens += fileData[j]['Email Unique Opens'];
+                clicks += fileData[j]['Email Unique Clicks'];
+              }
+            }
 
-                        const sheet = workbook.Sheets[workbook.SheetNames[0]],
-                            range = XLSX.utils.decode_range(sheet['!ref']);
+            SFMCData = {
+              'Email Deliveries': deliveries,
+              'Email Unique Opens': opens,
+              'Email Unique Clicks': clicks,
+            };
 
-                        if (dataLength > 1) {
-                            for (
-                                let rowNum = range.s.r;
-                                rowNum <= range.e.r;
-                                rowNum++
-                            ) {
-                                const secondCell =
-                                    sheet[
-                                        XLSX.utils.encode_cell({
-                                            r: rowNum,
-                                            c: 1,
-                                        })
-                                    ];
-                                if (
-                                    secondCell &&
-                                    secondCell.v === 'Email Content Name'
-                                ) {
-                                    nameRow = rowNum;
-                                } else {
-                                    for (const key in fileData) {
-                                        if (
-                                            secondCell &&
-                                            secondCell.v ===
-                                                fileData[key]['Campaign']
-                                        ) {
-                                            campaignRow[key] = rowNum;
-                                            const xlRowObj =
-                                                XLSX.utils.sheet_to_row_object_array(
-                                                    workbook.Sheets[
-                                                        workbook.SheetNames[0]
-                                                    ],
-                                                    { range: nameRow }
-                                                );
-                                            fileData[key] =
-                                                xlRowObj[
-                                                    campaignRow[key] -
-                                                        nameRow -
-                                                        1
-                                                ];
-                                            deliveries +=
-                                                fileData[key][
-                                                    'Email Deliveries'
-                                                ];
-                                            opens +=
-                                                fileData[key][
-                                                    'Email Unique Opens'
-                                                ];
-                                            clicks +=
-                                                fileData[key][
-                                                    'Email Unique Clicks'
-                                                ];
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            for (
-                                let rowNum = range.s.r;
-                                rowNum <= range.e.r;
-                                rowNum++
-                            ) {
-                                const secondCell =
-                                    sheet[
-                                        XLSX.utils.encode_cell({
-                                            r: rowNum,
-                                            c: 1,
-                                        })
-                                    ];
-                                if (
-                                    secondCell &&
-                                    secondCell.v === 'Email Content Name'
-                                ) {
-                                    nameRow = rowNum;
-                                } else if (
-                                    secondCell &&
-                                    secondCell.v === fileData[0]['Campaign']
-                                ) {
-                                    campaignRow.push(rowNum);
-                                }
-                            }
+            delete fileData[0]['Email Unique Unsubscribes'];
 
-                            const xlRowObj =
-                                XLSX.utils.sheet_to_row_object_array(
-                                    workbook.Sheets[workbook.SheetNames[0]],
-                                    { range: nameRow }
-                                );
+            fileData[0]['Send Date'] = new Date(
+              Date.UTC(0, 0, fileData[0]['Send Date'] - 1)
+            )
+              .toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+              })
+              .split('/')
+              .join('-');
 
-                            for (let j = 0; j < campaignRow.length; j++) {
-                                fileData[j] =
-                                    xlRowObj[campaignRow[j] - nameRow - 1];
-                                deliveries += fileData[j]['Email Deliveries'];
-                                opens += fileData[j]['Email Unique Opens'];
-                                clicks += fileData[j]['Email Unique Clicks'];
-                            }
-                        }
+            if (document.getElementById('email').checked) {
+              if (dataLength > 1) {
+                const lastIndex =
+                  fileData[0]['Email Content Name'].lastIndexOf('-');
+                fileData[0]['Email Content Name'] = fileData[0][
+                  'Email Content Name'
+                ].substring(0, lastIndex);
+                fileData[0]['Email Job ID'] = '';
+              }
+            }
 
-                        SFMCData = {
-                            'Email Deliveries': deliveries,
-                            'Email Unique Opens': opens,
-                            'Email Unique Clicks': clicks,
-                        };
+            const resultObj = Object.assign(fileData[0], SFMCData, GAData);
 
-                        delete fileData[0]['Email Unique Unsubscribes'];
+            results.push(resultObj);
 
-                        fileData[0]['Send Date'] = formatDate(
-                            fileData[0]['Send Date']
-                        );
+            const li = document.createElement('li');
+            li.textContent = name;
+            ol.appendChild(li);
+          };
+          reader.readAsBinaryString(file[i]);
+        }
+      }
 
-                        if (dataLength > 1) {
-                            const lastIndex =
-                                fileData[0]['Email Content Name'].lastIndexOf(
-                                    '-'
-                                );
-                            fileData[0]['Email Content Name'] = fileData[0][
-                                'Email Content Name'
-                            ].substring(0, lastIndex);
-                            fileData[0]['Email Job ID'] = '';
-                        }
+      function readAttentFile(file) {
+        const attentData = Object.assign({}, fileData);
+        results = [];
 
-                        const resultObj = Object.assign(
-                            fileData[0],
-                            SFMCData,
-                            GAData
-                        );
+        const ol = document.querySelector('#filesList ol');
 
-                        results.push(resultObj);
-                    };
-                    reader.readAsBinaryString(file[i]);
+        if (ol.childNodes.length > 1) {
+          ol.innerHTML = '';
+        }
+
+        let campaignRow = [];
+
+        for (let i = 0; i < file.length; i++) {
+          const name = file[i].name,
+            reader = new FileReader();
+          reader.onload = function (e) {
+            const data = e.target.result,
+              workbook = XLSX.read(data, {
+                type: 'binary',
+              });
+
+            const sheet = workbook.Sheets[workbook.SheetNames[0]],
+              range = XLSX.utils.decode_range(sheet['!ref']);
+
+            for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+              const secondCell =
+                sheet[XLSX.utils.encode_cell({ r: rowNum, c: 1 })];
+
+              for (const key in fileData) {
+                if (
+                  secondCell &&
+                  secondCell.v
+                    .toLowerCase()
+                    .includes(
+                      attentData[key]['Campaign']
+                        .toLowerCase()
+                        .replace(/\s+/g, '')
+                    )
+                ) {
+                  campaignRow[key] = rowNum;
+                  const xlRowObj = XLSX.utils.sheet_to_row_object_array(
+                    workbook.Sheets[workbook.SheetNames[0]]
+                  );
+                  fileData[key] = xlRowObj[campaignRow[key] - 1];
+
+                  delete fileData[key]['Campaign Tags'];
+
+                  const dataLength = Object.keys(fileData).length;
+
+                  if (
+                    fileData[key]['Message Name']
+                      .toLowerCase()
+                      .includes('variant')
+                  ) {
+                    fileData[key]['Message Name'] = fileData[key][
+                      'Message Name'
+                    ].replace(/variant/gi, ' VRNT');
+                  } else if (
+                    fileData[key]['Message Name']
+                      .toLowerCase()
+                      .includes('cntrl')
+                  ) {
+                    fileData[key]['Message Name'] = fileData[key][
+                      'Message Name'
+                    ].replace(/cntrl/gi, ' CTRL');
+                  }
+
+                  fileData[key]['Conversions'] = GAData[key]['Transactions'];
+                  fileData[key]['Revenue ($)'] = GAData[key]['Revenue'];
+
+                  const resultObj = Object.assign(fileData[key]);
+                  results.push(resultObj);
                 }
-                setTimeout(() => {
-                    campaignName = document
-                        .getElementById('campaignName')
-                        .value.trim();
-                    downloadXL(`${campaignName}.xlsx`);
-                }, 1000);
+              }
             }
 
-            function readAttentFile(file) {
-                const attentData = Object.assign({}, fileData);
+            const li = document.createElement('li');
+            li.textContent = name;
+            ol.appendChild(li);
+          };
+          reader.readAsBinaryString(file[i]);
+        }
+      }
 
-                let campaignRow = [];
+      function downloadXL(fileName) {
+        const ws = XLSX.utils.json_to_sheet(results),
+          wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Report');
+        XLSX.writeFile(wb, fileName);
 
-                for (let i = 0; i < file.length; i++) {
-                    const name = file[i].name,
-                        reader = new FileReader();
-                    reader.onload = function (e) {
-                        const data = e.target.result,
-                            workbook = XLSX.read(data, {
-                                type: 'binary',
-                            });
-
-                        const sheet = workbook.Sheets[workbook.SheetNames[0]],
-                            range = XLSX.utils.decode_range(sheet['!ref']);
-
-                        for (
-                            let rowNum = range.s.r;
-                            rowNum <= range.e.r;
-                            rowNum++
-                        ) {
-                            const secondCell =
-                                sheet[
-                                    XLSX.utils.encode_cell({ r: rowNum, c: 1 })
-                                ];
-
-                            for (const key in fileData) {
-                                if (
-                                    secondCell &&
-                                    secondCell.v
-                                        .toLowerCase()
-                                        .includes(
-                                            attentData[key]['Campaign']
-                                                .toLowerCase()
-                                                .replace(/\s+/g, '')
-                                        )
-                                ) {
-                                    campaignRow[key] = rowNum;
-                                    const xlRowObj =
-                                        XLSX.utils.sheet_to_row_object_array(
-                                            workbook.Sheets[
-                                                workbook.SheetNames[0]
-                                            ]
-                                        );
-                                    fileData[key] =
-                                        xlRowObj[campaignRow[key] - 1];
-
-                                    delete fileData[key]['Campaign Tags'];
-
-                                    const dataLength =
-                                        Object.keys(fileData).length;
-                                    if (
-                                        fileData[key]['Message']
-                                            .toLowerCase()
-                                            .includes('variant')
-                                    ) {
-                                        fileData[key]['Message'] = fileData[
-                                            key
-                                        ]['Message'].replace(
-                                            /variant/gi,
-                                            ' VRNT'
-                                        );
-                                    } else if (
-                                        fileData[key]['Message']
-                                            .toLowerCase()
-                                            .includes('cntrl')
-                                    ) {
-                                        fileData[key]['Message'] = fileData[
-                                            key
-                                        ]['Message'].replace(
-                                            /cntrl/gi,
-                                            ' CTRL'
-                                        );
-                                    }
-
-                                    fileData[key]['Send Date'] = formatDate(
-                                        fileData[key]['Send Date']
-                                    );
-
-                                    fileData[key]['Conversions'] =
-                                        GAData[key]['Transactions'];
-                                    fileData[key]['Revenue ($)'] =
-                                        GAData[key]['Revenue'];
-
-                                    fileData[key]['Click Rate (%)'] =
-                                        (
-                                            fileData[key]['Click Rate (%)'] *
-                                            100
-                                        ).toFixed(2) + '%';
-                                    fileData[key]['Conversion Rate (%)'] =
-                                        (
-                                            fileData[key][
-                                                'Conversion Rate (%)'
-                                            ] * 100
-                                        ).toFixed(2) + '%';
-                                    fileData[key]['Opt Out Rate (%)'] =
-                                        (
-                                            fileData[key]['Opt Out Rate (%)'] *
-                                            100
-                                        ).toFixed(2) + '%';
-
-                                    const resultObj = Object.assign(
-                                        fileData[key]
-                                    );
-                                    results.push(resultObj);
-                                }
-                            }
-                        }
-                    };
-                    reader.readAsBinaryString(file[i]);
-                }
-                setTimeout(() => {
-                    campaignName = document
-                        .getElementById('campaignName')
-                        .value.trim();
-                    downloadXL(`${campaignName}.xlsx`);
-                }, 1000);
-            }
-
-            function downloadXL(fileName) {
-                fileName = fileName || 'tapestryFinalReport.xlsx';
-
-                const ws = XLSX.utils.json_to_sheet(results),
-                    wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'Report');
-                XLSX.writeFile(wb, fileName);
-
-                alert('Report created successfully!');
-                location.reload();
-                countClicks('hit');
-            }
-        </script>
-        <script src="https://apis.google.com/js/client:platform.js"></script>
-    </body>
+        alert('Report created successfully!');
+        location.reload();
+        //  countClicks('hit');
+      }
+    </script>
+  </body>
 </html>
